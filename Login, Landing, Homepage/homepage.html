@@ -135,7 +135,7 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
-        .voice-interaction, .progress-report, .recommendations {
+        .voice-interaction, .community, .recommendations {
             display: flex;
             flex-direction: column;
             gap: 1rem;
@@ -143,19 +143,19 @@
             text-align: center;
         }
 
-        .voice-icon, .progress-icon, .recommendations-icon {
+        .voice-icon, .community-icon, .recommendations-icon {
             font-size: 3rem;
             margin-bottom: 1rem;
             color: rgba(255, 255, 255, 0.9);
         }
 
-        .voice-title, .progress-title, .recommendations-title {
+        .voice-title, .community-title, .recommendations-title {
             font-size: 1.5rem;
             font-weight: 600;
             margin: 0;
         }
 
-        .voice-description, .progress-description, .recommendations-description {
+        .voice-description, .community-description, .recommendations-description {
             font-size: 1rem;
             opacity: 0.8;
             margin: 0;
@@ -306,6 +306,49 @@
             font-size: 1.1rem;
             margin-top: 1rem;
         }
+
+        .emergency-support {
+            color: white;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .emergency-icon {
+            font-size: 3rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 1rem;
+        }
+
+        .emergency-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .emergency-description {
+            font-size: 1rem;
+            opacity: 0.8;
+            margin: 0;
+        }
+
+        .emergency-button {
+            background: rgba(255, 20, 147, 0.2);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 25px;
+            text-decoration: none;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .emergency-button:hover {
+            background: rgba(255, 20, 147, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
     </style>
 </head>
 <body>
@@ -340,10 +383,10 @@
                 <span class="mood-emoji">😡</span>
             </div>
         </div>
-        <div class="grid-item progress-report">
-            <i class="fas fa-chart-pie progress-icon"></i>
-            <h3 class="progress-title">Progress Report</h3>
-            <p class="progress-description">View detailed insights into your mental health progress over time.</p>
+        <div class="grid-item community">
+            <i class="fas fa-users community-icon"></i>
+            <h3 class="community-title">MindBuddy Community</h3>
+            <p class="community-description">Connect with others, share experiences, and support each other in a safe space.</p>
         </div>
         <div class="grid-item recommendations">
             <i class="fas fa-film recommendations-icon"></i>
@@ -356,6 +399,12 @@
                  class="awareness-image">
         </div>
         
+        <div class="grid-item emergency-support">
+            <i class="fas fa-phone-alt emergency-icon"></i>
+            <h3 class="emergency-title">Emergency Support</h3>
+            <p class="emergency-description">24/7 crisis helpline and emergency resources. You're not alone.</p>
+            <a href="tel:14416" class="emergency-button">Call 14416</a>
+        </div>
     </main>
 </body>
 </html>
