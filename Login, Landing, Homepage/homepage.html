@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>MindBuddy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: rgba(238, 174, 202, 1);
+            --secondary: rgba(148, 187, 233, 1);
+            --gradient: radial-gradient(circle, rgba(238, 174, 202, 1) 0%, rgba(148, 187, 233, 1) 100%);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background: var(--gradient);
+            min-height: 100vh;
+        }
+
+        .dashboard {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .dashboard-title {
+            color: white;
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
+            padding: 3rem;
+            max-width: 1200px;
+            margin: 4rem auto;
+            position: relative;
+        }
+
+        .grid-item {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2.5rem;
+            min-height: 250px;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .grid-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Update grid spans */
+        .grid-item:nth-child(4) {
+            grid-column: span 2;
+            min-height: 200px;  /* Decreased from 250px */
+            padding: 2rem;      /* Decreased from 2.5rem */
+        }
+
+        .grid-item:nth-child(5) {
+            grid-column: span 1;
+        }
+
+        .grid-item:nth-child(7) {
+            grid-column: span 2;
+        }
+
+        /* Adjust media queries */
+        @media (max-width: 768px) {
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .grid-item:nth-child(n) {
+                grid-column: span 1;
+            }
+        }
+
+        /* .random-image {
+            position: absolute;
+            right: -150px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 120px;
+            height: 120px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .random-image:hover {
+            transform: translateY(-50%) scale(1.1);
+        } */
+
+        @keyframes float {
+            0%, 100% { transform: translateY(-50%) translateX(0); }
+            50% { transform: translateY(-50%) translateX(10px); }
+        }
+
+        @media (max-width: 1400px) {
+            .random-image {
+                display: none;
+            }
+        }
+
+        .auth-button {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1.5rem;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            backdrop-filter: blur(5px);
+        }
+
+        .auth-button:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .voice-interaction, .progress-report, .recommendations {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            color: white;
+            text-align: center;
+        }
+
+        .voice-icon, .progress-icon, .recommendations-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .voice-title, .progress-title, .recommendations-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .voice-description, .progress-description, .recommendations-description {
+            font-size: 1rem;
+            opacity: 0.8;
+            margin: 0;
+        }
+
+        .chatbot {
+            color: white;
+            text-align: center;
+        }
+
+        .chatbot-icon {
+            font-size: 3.5rem;  /* Increased from 3rem */
+            margin-bottom: 1rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .chatbot-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 0;
+            color: white;
+        }
+
+        .chatbot-description {
+            font-size: 1rem;
+            opacity: 0.8;
+            margin: 0;
+            color: white;
+        }
+
+        /* Update mood tracker styles */
+        .mood-tracker {
+            color: white;
+        }
+
+        .mood-icon {
+            font-size: 3.5rem;  /* Increased from 3rem */
+            margin-bottom: 0.8rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .mood-title {
+            color: white;
+            font-weight: 600;
+        }
+
+        .mood-description {
+            color: white;
+            opacity: 0.8;
+        }
+
+        .mood-icons-container {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 0.8rem;  /* Decreased from 1rem */
+        }
+
+        .mood-emoji {
+            font-size: 2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .mood-emoji:hover {
+            transform: scale(1.2);
+        }
+
+        /* Update the grid 8 & 9 item */
+        .grid-item.brain-image {
+            overflow: hidden;
+            padding: 0;
+        }
+
+        .awareness-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .grid-item.brain-image:hover .awareness-image {
+            transform: scale(1.05);
+        }
+
+        .self-love {
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .self-love-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .self-love-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 0;
+            color: white;
+        }
+
+        .self-love-description {
+            font-size: 1rem;
+            opacity: 0.8;
+            margin: 0.5rem 0 0;
+            color: white;
+        }
+
+        .self-love:hover .self-love-image {
+            transform: scale(1.05);
+        }
+
+        .quote-container {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .gradient-quote {
+            font-size: 2rem;
+            font-weight: 700;
+            line-height: 1.4;
+            background: #FF1493; /* Changed to dark pink */
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(255, 20, 147, 0.3); /* Updated shadow to match */
+            padding: 0.5rem;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .quote-container:hover .gradient-quote {
+            transform: scale(1.05);
+        }
+
+        .quote-author {
+            color: #FF1493; /* Changed to match quote color */
+            opacity: 0.8;
+            font-size: 1.1rem;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <header class="dashboard">
+        <h1 class="dashboard-title">MindBuddy</h1>
+        <a href="secondform.html" class="auth-button">Login / Signup</a>
+    </header>
+
+    <main class="grid-container">
+        <div class="grid-item chatbot">
+            <i class="fas fa-robot chatbot-icon"></i>
+            <h3 class="chatbot-title">AI Chatbot</h3>
+            <p class="chatbot-description">Interact with our intelligent chatbot for personalized mental health support</p>
+        </div>
+        <div class="grid-item voice-interaction">
+            <i class="fas fa-microphone-alt voice-icon"></i>
+            <h3 class="voice-title">Voice Interaction</h3>
+            <p class="voice-description">Talk to our system for hands-free interaction and personalized recommendations.</p>
+        </div>
+        <div class="grid-item quote-container">
+            <h3 class="gradient-quote">"It's okay to not be okay; it's not okay to stay that way."</h3>
+            <p class="quote-author">- MindBuddy</p>
+        </div>
+        <div class="grid-item mood-tracker">
+            <i class="fas fa-chart-line mood-icon"></i>
+            <h3 class="mood-title">Mood Tracker</h3>
+            <p class="mood-description">Track your daily emotional journey and identify patterns to better understand your mental well-being</p>
+            <div class="mood-icons-container">
+                <span class="mood-emoji">😊</span>
+                <span class="mood-emoji">😐</span>
+                <span class="mood-emoji">😢</span>
+                <span class="mood-emoji">😡</span>
+            </div>
+        </div>
+        <div class="grid-item progress-report">
+            <i class="fas fa-chart-pie progress-icon"></i>
+            <h3 class="progress-title">Progress Report</h3>
+            <p class="progress-description">View detailed insights into your mental health progress over time.</p>
+        </div>
+        <div class="grid-item recommendations">
+            <i class="fas fa-film recommendations-icon"></i>
+            <h3 class="recommendations-title">Recommendations</h3>
+            <p class="recommendations-description">Get personalized movie and book recommendations based on your mood.</p>
+        </div>
+        <div class="grid-item brain-image">
+            <img src="https://images.vexels.com/media/users/3/255295/raw/fff9637b957b3397bf7b1691141a94b8-set-of-mental-health-awareness-brains.jpg" 
+                 alt="Mental Health Awareness Brains" 
+                 class="awareness-image">
+        </div>
+        
+    </main>
+</body>
+</html>
