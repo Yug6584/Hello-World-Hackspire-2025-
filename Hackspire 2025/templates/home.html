@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+
+<body>
+    <!-- Fixed Brand Name (Top-Left) -->
+    <div class="brand-logo">
+        MOSAIC MIND
+    </div>
+
+    <!-- Login/Signup (Top-Right) -->
+    <div class="login-option">
+        {% if 'user' in session %}
+        <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+        {% else %}
+        <a class="nav-link" href="{{ url_for('login') }}">Login / Signup</a>
+        {% endif %}
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title" data-text="MOSAIC MIND">MOSAIC MIND</h1>
+            <p class="hero-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit illo, rerum necessitatibus est eum magnam dolores praesentium vitae. Laboriosam harum in quae voluptate.</p>
+            <button class="cta-button">
+                Get Started Now
+                <span class="icon"><em data-feather="arrow-right"></em></span>
+            </button>
+        </div>
+    </section>
+
+    <!-- Particle Animation -->
+    <div class="particles">
+        <div class="particle" style="left: 10%; animation-delay: 0s;"></div>
+        <div class="particle" style="left: 20%; animation-delay: 2s;"></div>
+        <div class="particle" style="left: 30%; animation-delay: 4s;"></div>
+        <div class="particle" style="left: 40%; animation-delay: 6s;"></div>
+        <div class="particle" style="left: 50%; animation-delay: 8s;"></div>
+        <div class="particle" style="left: 60%; animation-delay: 10s;"></div>
+        <div class="particle" style="left: 70%; animation-delay: 12s;"></div>
+        <div class="particle" style="left: 80%; animation-delay: 14s;"></div>
+        <div class="particle" style="left: 90%; animation-delay: 16s;"></div>
+    </div>
+
+    <!-- Initialize Feather Icons -->
+    <script>
+        feather.replace();
+    </script>
+</body>
+
+</html>

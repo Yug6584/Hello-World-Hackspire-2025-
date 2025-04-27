@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>MindBuddy</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='homepage.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header class="dashboard">
+        <h1 class="dashboard-title">MindBuddy</h1>
+        <a href="{{ url_for('auth.logout') if 'user' in session else url_for('auth.login') }}" class="auth-button">
+            {{ 'Logout' if 'user' in session else 'Login / Signup' }}
+        </a>
+    </header>
+
+    <main class="grid-container">
+        <!-- AI Chatbot Card -->
+        <a href="{{ url_for('gemma.gemma_chat_page') }}" class="grid-item chatbot">
+            <i class="fas fa-robot chatbot-icon"></i>
+            <h3 class="chatbot-title">AI Chatbot</h3>
+            <p class="chatbot-description">Interact with our intelligent chatbot for personalized mental health support</p>
+        </a>
+
+        
+
+        <!-- Quote Card -->
+        <div class="grid-item quote-container">
+            <h3 class="gradient-quote">"It's okay to not be okay; it's not okay to stay that way."</h3>
+            <p class="quote-author">- MindBuddy</p>
+        </div>
+       
+
+        <!-- Mood Tracker Card -->
+        <a href="{{ url_for('mood.mood_journal') }}" class="grid-item mood-tracker">
+            <i class="fas fa-chart-line mood-icon"></i>
+            <h3 class="mood-title">Mood Tracker</h3>
+            <p class="mood-description">Track your daily emotional journey and identify patterns to better understand your mental well-being</p>
+            <div class="mood-icons-container">
+                <span class="mood-emoji">😊</span>
+                <span class="mood-emoji">😐</span>
+                <span class="mood-emoji">😢</span>
+                <span class="mood-emoji">😡</span>
+            </div>
+        </a>
+        <!-- Voice Interaction Card -->
+        <div class="grid-item emergency-support">
+            <i class="fas fa-phone-alt emergency-icon"></i>
+            <h3 class="emergency-title">Emergency Support</h3>
+            <p class="emergency-description">24/7 crisis helpline and emergency resources. You're not alone.</p>
+            <a href="tel:14416" class="emergency-button">Call 14416</a>
+        </div>
+       
+
+        <!-- Community Card -->
+        <a href="{{ url_for('commu.community') }}" class="grid-item community mood-tracker">
+            <i class="fas fa-users community-icon"></i>
+            <h3 class="community-title">MindBuddy Community</h3>
+            <p class="community-description">Connect with others, share experiences, and support each other in a safe space.</p>
+        </a>
+        <!-- Recommendations Card -->
+        <a href="{{ url_for('recomm.index') }}" class="grid-item recommendations mood-tracker">
+            <i class="fas fa-film recommendations-icon"></i>
+            <h3 class="recommendations-title">Recommendations</h3>
+            <p class="recommendations-description">Get personalized movie and book recommendations based on your mood.</p>
+        </a>
+
+        <!-- Brain Image Card -->
+        <div class="grid-item brain-image">
+            <img src="https://images.vexels.com/media/users/3/255295/raw/fff9637b957b3397bf7b1691141a94b8-set-of-mental-health-awareness-brains.jpg" 
+                 alt="Mental Health Awareness Brains" 
+                 class="awareness-image">
+        </div>
+
+    </main>
+</body>
+</html>

@@ -1,0 +1,262 @@
+/* Custom CSS Variables */
+:root {
+    --primary: rgba(238, 174, 202, 1);    /* Pink */
+    --secondary: rgba(148, 187, 233, 1);  /* Blue */
+    --accent: rgba(193, 180, 217, 1);     /* Mid-tone */
+    --dark: rgba(148, 187, 233, 0.9);     /* Transparent Blue */
+    --light: #ffffff;
+    --gradient: radial-gradient(circle, var(--primary) 0%, var(--secondary) 100%);
+}
+
+/* Global Styles */
+body {
+    font-family: 'Inter', sans-serif;
+    background: var(--gradient);
+    color: var(--light);
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+/* Scrollbar Styling */
+body::-webkit-scrollbar {
+    width: 10px;
+}
+
+body::-webkit-scrollbar-track {
+    background: rgba(var(--secondary), 0.1);
+}
+
+body::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 5px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+    background: rgba(var(--primary), 0.8);
+}
+
+/* Fixed Brand Logo (Top-Left) */
+.brand-logo {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--light);
+    z-index: 1000;
+    text-shadow: 0 0 10px rgba(var(--primary), 0.5);
+}
+
+/* Login Option (Top-Right) */
+.login-option {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.login-option a {
+    color: var(--light);
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.login-option a:hover {
+    color: var(--primary);
+    text-shadow: 0 0 10px rgba(var(--primary), 0.5);
+}
+
+/* Hero Section */
+.hero-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    position: relative;
+    text-align: center;
+}
+
+.hero-content {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.hero-title {
+    font-size: 7.5rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--light);
+    position: relative;
+    margin: 0;
+    padding: 0;
+    animation: titleFloat 6s ease-in-out infinite;
+    text-shadow: 0 0 20px rgba(var(--primary), 0.5),
+                 0 0 40px rgba(var(--secondary), 0.3);
+}
+
+.hero-title::after {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    color: transparent;
+    filter: blur(25px);
+    background: linear-gradient(135deg, rgba(var(--primary), 0.4), rgba(var(--secondary), 0.4));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-description {
+    max-width: 700px;
+    margin: 0 auto;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Call to Action Button */
+.cta-button {
+    background: rgba(255, 255, 255, 0.95);
+    color: var(--primary);
+    padding: 1rem 2.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.cta-button:hover {
+    transform: translateY(-3px) scale(1.02);
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 10px 30px rgba(255, 255, 255, 0.3),
+                0 0 50px rgba(var(--primary), 0.2);
+}
+
+.cta-button::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        transparent,
+        rgba(var(--primary), 0.3),
+        transparent
+    );
+    transform: rotate(45deg);
+    animation: shine 3s infinite;
+}
+
+.cta-button .icon svg {
+    width: 18px;
+    height: 18px;
+    stroke: var(--primary);
+    transition: transform 0.3s ease;
+}
+
+.cta-button:hover .icon svg {
+    transform: translateX(5px);
+}
+
+@keyframes shine {
+    0% { transform: translateX(-100%) rotate(45deg); }
+    100% { transform: translateX(100%) rotate(45deg); }
+}
+
+@keyframes titleFloat {
+    0%, 100% {
+        transform: translateY(0) scale(1);
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.3),
+                     0 0 40px rgba(var(--primary), 0.2);
+    }
+    50% {
+        transform: translateY(-10px) scale(1.01);
+        text-shadow: 0 0 30px rgba(255, 255, 255, 0.4),
+                     0 0 60px rgba(var(--primary), 0.3);
+    }
+}
+
+/* Particle Animation */
+.particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.particle {
+    position: absolute;
+    bottom: 0;
+    width: 15px;
+    height: 15px;
+    background: var(--accent);
+    border-radius: 50%;
+    opacity: 0.7;
+    box-shadow: 0 0 10px rgba(var(--primary), 0.3);
+    animation: rise 20s infinite linear;
+}
+
+@keyframes rise {
+    0% { transform: translateY(100vh) scale(1); }
+    100% { transform: translateY(-100vh) scale(0); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .brand-logo {
+        font-size: 1.2rem;
+        top: 15px;
+        left: 15px;
+    }
+
+    .login-option {
+        top: 15px;
+        right: 15px;
+    }
+
+    .login-option a {
+        font-size: 0.9rem;
+    }
+
+    .hero-title {
+        font-size: 4rem;
+        letter-spacing: 1px;
+    }
+
+    .hero-description {
+        font-size: 1rem;
+    }
+
+    .cta-button {
+        padding: 0.8rem 2rem;
+        font-size: 1rem;
+    }
+}

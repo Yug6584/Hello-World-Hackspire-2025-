@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Choose Your Mood</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='recomm.css') }}">
+</head>
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        color: #333;
+        animation: fadeIn 1s ease-in;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .card {
+        background: white;
+        border-radius: 15px;
+        padding: 40px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        text-align: center;
+        max-width: 400px;
+        animation: slideUp 1s ease-out;
+    }
+
+    @keyframes slideUp {
+        from { transform: translateY(30px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+
+    select, button {
+        padding: 12px 20px;
+        margin-top: 20px;
+        font-size: 16px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        width: 100%;
+        box-sizing: border-box;
+        transition: all 0.3s ease;
+    }
+
+    select:hover, button:hover {
+        border-color: #888;
+    }
+
+    button {
+        background-color: #4CAF50;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #45a049;
+    }
+
+    h1 {
+        margin-bottom: 20px;
+        color: #444;
+    }
+</style>
+<body>
+
+<div class="card">
+    <h1>Select Your Mood 🎶</h1>
+    <form method="POST" action="{{ url_for('recomm.index') }}">
+        <select name="mood" required>
+            <option value="" disabled selected>-- Choose Mood --</option>
+            <option value="happy">Happy</option>
+            <option value="sad">Sad</option>
+            <option value="angry">Angry</option>
+            <option value="relaxed">Relaxed</option>
+        </select>
+        <br><br>
+        <button type="submit">🎵 🎬 📚 Get Song, Movie and Book Recommendation</button>
+    </form>
+</div>
+
+</body>
+</html>

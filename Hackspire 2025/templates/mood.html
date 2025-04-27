@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mood Journal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='mood.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- Left side: Past entries -->
+        <div class="entries">
+            <h2>Past Entries</h2>
+            {% if entries %}
+                <ul>
+                    {% for entry in entries %}
+                        <li>
+                            <strong>{{ entry[1].split(' ')[1][:5] }}</strong> | 
+                            Mood: {{ entry[2] }} | 
+                            Notes: {{ entry[3] or 'None' }}
+                            <form method="POST" action="{{ url_for('mood.delete_entry', entry_id=entry[0]) }}" style="display:inline;">
+                                <button type="submit">Delete</button>
+                            </form>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No entries yet.</p>
+            {% endif %}
+        </div>
+
+        <!-- Right side: Chatbot -->
+        <div class="chatbox">
+            <div id="chatMessages" class="chat-messages">
+                <div class="message bot">Hi! How are you feeling today?</div>
+            </div>
+            <form id="chatForm" method="POST" action="{{ url_for('mood.save_mood') }}">
+                <input type="text" id="userInput" name="response" placeholder="Type here..." required>
+                <button type="submit">Send</button>
+
+                <!-- Hidden fields to collect answers -->
+                <input type="hidden" name="mood" id="moodInput">
+                <input type="hidden" name="notes" id="notesInput">
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let step = 0;
+        let mood = '';
+        let notes = '';
+
+        const chatMessages = document.getElementById('chatMessages');
+        const userInput = document.getElementById('userInput');
+        const chatForm = document.getElementById('chatForm');
+
+        chatForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const userText = userInput.value.trim();
+            if (!userText) return;
+
+            // Show user message
+            chatMessages.innerHTML += `<div class="message user">${userText}</div>`;
+
+            if (step === 0) {
+                mood = userText;
+                chatMessages.innerHTML += `<div class="message bot">Any notes you want to add?</div>`;
+                step++;
+            } else if (step === 1) {
+                notes = userText;
+
+                // Fill hidden inputs and submit form
+                document.getElementById('moodInput').value = mood;
+                document.getElementById('notesInput').value = notes;
+                chatForm.submit();
+            }
+
+            userInput.value = '';
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        });
+    </script>
+</body>
+</html>
